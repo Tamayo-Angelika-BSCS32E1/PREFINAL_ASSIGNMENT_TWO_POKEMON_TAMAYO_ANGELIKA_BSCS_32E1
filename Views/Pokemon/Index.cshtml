@@ -1,0 +1,33 @@
+﻿@model PokemonApp.Controllers.PokemonList
+
+@{
+    ViewData["Title"] = "Pokemon List";
+}
+
+<h1>Pokemon List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-name="@item.Name">@item.Name</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @if (Model.Results.Count > 0)
+    {
+        <a asp-action="Index" asp-route-offset="@(ViewBag.Offset - ViewBag.Limit)" asp-route-limit="@ViewBag.Limit">Previous</a>
+        <a asp-action="Index" asp-route-offset="@(ViewBag.Offset + ViewBag.Limit)" asp-route-limit="@ViewBag.Limit">Next</a>
+    }
+</div>

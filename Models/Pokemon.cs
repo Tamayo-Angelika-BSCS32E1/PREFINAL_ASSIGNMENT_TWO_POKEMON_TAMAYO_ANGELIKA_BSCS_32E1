@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_TAMAYO_ANGELIKA_BSCS_32E1.Models
+namespace PokemonApp.Models
 {
     public class Pokemon
     {
@@ -11,7 +11,7 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_TAMAYO_ANGELIKA_BSCS_32E1.Models
 
     public class Ability
     {
-        public AbilityDetail AbilityDetail { get; set; }
+        public AbilityDetail AbilityDetail { get; set; }  // Renamed property
     }
 
     public class AbilityDetail
@@ -21,7 +21,7 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_TAMAYO_ANGELIKA_BSCS_32E1.Models
 
     public class Move
     {
-        public MoveDetail MoveDetail { get; set; }
+        public MoveDetail MoveDetail { get; set; }  // Renamed property
     }
 
     public class MoveDetail

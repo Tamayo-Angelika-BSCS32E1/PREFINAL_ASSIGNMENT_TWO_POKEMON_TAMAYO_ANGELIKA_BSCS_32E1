@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PREFINAL_ASSIGNMENT_TWO_POKEMON_TAMAYO_ANGELIKA_BSCS_32E1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d7fff8214580558c331244a1b743b666bf01f26")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea218ae26eaa59de259f71a0a55dd16b6ba5610a")]
 [assembly: System.Reflection.AssemblyProductAttribute("PREFINAL_ASSIGNMENT_TWO_POKEMON_TAMAYO_ANGELIKA_BSCS_32E1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PREFINAL_ASSIGNMENT_TWO_POKEMON_TAMAYO_ANGELIKA_BSCS_32E1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

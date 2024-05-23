@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using PREFINAL_ASSIGNMENT_TWO_POKEMON_TAMAYO_ANGELIKA_BSCS_32E1.Models;
+using PokemonApp.Models;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_TAMAYO_ANGELIKA_BSCS_32E1.Controllers
+namespace PokemonApp.Controllers
 {
     public class PokemonController : Controller
     {
@@ -20,6 +20,8 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_TAMAYO_ANGELIKA_BSCS_32E1.Controllers
         {
             var response = await _httpClient.GetStringAsync($"https://pokeapi.co/api/v2/pokemon?offset={offset}&limit={limit}");
             var pokemonList = JsonConvert.DeserializeObject<PokemonList>(response);
+            ViewBag.Offset = offset;
+            ViewBag.Limit = limit;
             return View(pokemonList);
         }
 

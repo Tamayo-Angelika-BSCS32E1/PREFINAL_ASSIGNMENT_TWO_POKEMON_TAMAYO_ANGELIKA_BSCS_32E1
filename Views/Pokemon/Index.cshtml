@@ -25,9 +25,12 @@
 </table>
 
 <div>
-    @if (Model.Results.Count > 0)
+    @if (ViewBag.Offset > 0)
     {
         <a asp-action="Index" asp-route-offset="@(ViewBag.Offset - ViewBag.Limit)" asp-route-limit="@ViewBag.Limit">Previous</a>
+    }
+    @if (Model.Results.Count >= ViewBag.Limit)
+    {
         <a asp-action="Index" asp-route-offset="@(ViewBag.Offset + ViewBag.Limit)" asp-route-limit="@ViewBag.Limit">Next</a>
     }
 </div>

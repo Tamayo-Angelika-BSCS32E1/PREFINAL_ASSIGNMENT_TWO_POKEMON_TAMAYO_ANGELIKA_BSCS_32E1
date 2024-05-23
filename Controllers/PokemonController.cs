@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PokemonApp.Models;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace PokemonApp.Controllers
 {
@@ -16,31 +14,33 @@ namespace PokemonApp.Controllers
             _httpClient = httpClient;
         }
 
-        public async Task<IActionResult> Index(int offset = 0, int limit = 20)
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var response = await _httpClient.GetStringAsync($"https://pokeapi.co/api/v2/pokemon?offset={offset}&limit={limit}");
-            var pokemonList = JsonConvert.DeserializeObject<PokemonList>(response);
-            ViewBag.Offset = offset;
-            ViewBag.Limit = limit;
-            return View(pokemonList);
+            int pageSize = 20;
+            var response = await _httpClient.GetStringAsync($"https://pokeapi.co/api/v2/pokemon?offset={(page - 1) * pageSize}&limit={pageSize}");
+            var json = JObject.Parse(response);
+            var results = json["results"].ToObject<List<Pokemon>>();
+
+            ViewBag.TotalCount = json["count"].ToObject<int>();
+            ViewBag.PageSize = pageSize;
+            ViewBag.CurrentPage = page;
+
+            return View(results);
         }
 
         public async Task<IActionResult> Details(string name)
         {
             var response = await _httpClient.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{name}");
-            var pokemon = JsonConvert.DeserializeObject<Pokemon>(response);
+            var json = JObject.Parse(response);
+
+            var pokemon = new Pokemon
+            {
+                Name = json["name"].ToString(),
+                Moves = json["moves"].Select(m => m["move"]["name"].ToString()).ToList(),
+                Abilities = json["abilities"].Select(a => a["ability"]["name"].ToString()).ToList()
+            };
+
             return View(pokemon);
         }
-    }
-
-    public class PokemonList
-    {
-        public List<Result> Results { get; set; }
-    }
-
-    public class Result
-    {
-        public string Name { get; set; }
-        public string Url { get; set; }
     }
 }

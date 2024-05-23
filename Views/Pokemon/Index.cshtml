@@ -1,36 +1,32 @@
-﻿@model PokemonApp.Controllers.PokemonList
-
-@{
+﻿@{
     ViewData["Title"] = "Pokemon List";
+    int totalPages = (int)Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize);
 }
 
-<h1>Pokemon List</h1>
+<h2>@ViewData["Title"]</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Results)
-        {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-route-name="@item.Name">@item.Name</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<ul>
+    @foreach (var pokemon in Model)
+    {
+        <li>
+            <a href="@Url.Action("Details", "Pokemon", new { name = pokemon.Name })">@pokemon.Name</a>
+        </li>
+    }
+</ul>
 
 <div>
-    @if (ViewBag.Offset > 0)
+    @if (ViewBag.CurrentPage > 1)
     {
-        <a asp-action="Index" asp-route-offset="@(ViewBag.Offset - ViewBag.Limit)" asp-route-limit="@ViewBag.Limit">Previous</a>
+        <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })">Previous</a>
     }
-    @if (Model.Results.Count >= ViewBag.Limit)
+
+    @for (int i = 1; i <= totalPages; i++)
     {
-        <a asp-action="Index" asp-route-offset="@(ViewBag.Offset + ViewBag.Limit)" asp-route-limit="@ViewBag.Limit">Next</a>
+        <a href="@Url.Action("Index", new { page = i })">@i</a>
+    }
+
+    @if (ViewBag.CurrentPage < totalPages)
+    {
+        <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Next</a>
     }
 </div>
